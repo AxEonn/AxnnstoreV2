@@ -1,0 +1,1695 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚔️ AxnnStore - Blox  ⚔️</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 🏰 VARIABEL WARNA DARK FANTASY */
+        :root {
+            --dark-bg: #0f0c0a;
+            --parchment: #f0e6d2;
+            --blood-red: #8b0000;
+            --gold: #daa520;
+            --silver: #c0c0c0;
+            --steel-blue: #4682b4;
+            --emerald: #50c878;
+            --purple: #800080;
+            --shadow: rgba(0, 0, 0, 0.7);
+            --moon-red: #e63946;
+        }
+
+        body {
+            font-family: 'MedievalSharp', cursive;
+            background: var(--dark-bg);
+            margin: 0;
+            color: var(--parchment);
+            background-image: radial-gradient(circle at center, #2a0c0e 0%, #0f0c0a 70%);
+            position: relative;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 20%;
+            left: 50%;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, var(--moon-red) 30%, transparent 70%);
+            border-radius: 50%;
+            box-shadow: 0 0 60px var(--moon-red);
+            transform: translateX(-50%);
+            z-index: -1;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        /* 🏰 HEADER CASTLE THEME */
+        header {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(rgba(15, 12, 10, 0.9), rgba(15, 12, 10, 0.7));
+            border-bottom: 3px solid var(--gold);
+            box-shadow: 0 5px 15px var(--shadow);
+            position: relative;
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0,0 L10,10 L20,0 L30,10 L40,0 L50,10 L60,0 L70,10 L80,0 L90,10 L100,0" fill="%23daa520" /></svg>') repeat-x;
+            background-size: 100px 10px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: var(--gold);
+            text-shadow: 2px 2px 4px var(--shadow);
+            margin: 0;
+            letter-spacing: 2px;
+        }
+
+        /* 🏰 MAIN PAGE */
+        .main-page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .main-logo {
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, var(--gold) 0%, var(--blood-red) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            border: 5px solid var(--gold);
+            box-shadow: 0 0 30px var(--moon-red);
+        }
+
+        .main-logo i {
+            font-size: 6rem;
+            color: var(--parchment);
+        }
+
+        .main-title {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px var(--moon-red);
+        }
+
+        .main-subtitle {
+            font-size: 1.5rem;
+            color: var(--silver);
+            margin-bottom: 3rem;
+            max-width: 600px;
+        }
+
+        .service-options {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .service-option {
+            background: linear-gradient(rgba(15, 12, 10, 0.8), rgba(15, 12, 10, 0.9));
+            border: 2px solid var(--gold);
+            border-radius: 10px;
+            padding: 2rem;
+            width: 250px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+
+        .service-option:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px var(--moon-red);
+            border-color: var(--moon-red);
+        }
+
+        .service-option i {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .service-option h3 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .service-option p {
+            color: var(--silver);
+        }
+
+        /* 🛡️ KARTU LAYANAN */
+        .catalog-page {
+            display: none;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 1rem;
+        }
+
+        .service-card {
+            background: linear-gradient(rgba(15, 12, 10, 0.8), rgba(15, 12, 10, 0.9));
+            border-radius: 5px;
+            padding: 1.5rem;
+            margin: 1rem;
+            border: 1px solid var(--gold);
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 L0,100 Z" fill="none" stroke="%23daa520" stroke-width="2" stroke-dasharray="10,5" /></svg>');
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px var(--shadow);
+            border-color: var(--blood-red);
+        }
+
+        /* 🗡️ TOMBOL */
+        .order-btn {
+            background: linear-gradient(to bottom, var(--gold), var(--blood-red));
+            color: var(--parchment);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 3px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 3px 6px var(--shadow);
+            transition: all 0.3s;
+            font-family: 'MedievalSharp', cursive;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .order-btn::after {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+            transform: rotate(30deg);
+            pointer-events: none;
+        }
+
+        .order-btn:hover {
+            box-shadow: 0 5px 12px var(--shadow);
+            transform: translateY(-2px);
+            background: linear-gradient(to bottom, var(--blood-red), var(--gold));
+        }
+
+        /* 📜 DETAIL ITEM */
+        .item-detail {
+            display: none;
+            background: linear-gradient(rgba(15, 12, 10, 0.95), rgba(15, 12, 10, 0.98));
+            border: 1px solid var(--silver);
+            padding: 1.5rem;
+            margin-top: 1rem;
+            border-radius: 5px;
+            box-shadow: inset 0 0 10px var(--shadow);
+            position: relative;
+        }
+
+        .item-detail::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://www.transparenttextures.com/patterns/old-map.png');
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .detail-header {
+            color: var(--gold);
+            border-bottom: 1px solid var(--gold);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .detail-row {
+            display: flex;
+            margin-bottom: 0.5rem;
+        }
+
+        .detail-label {
+            font-weight: bold;
+            color: var(--silver);
+            min-width: 120px;
+        }
+
+        .detail-value {
+            color: var(--parchment);
+        }
+
+        /* 🏷️ KATEGORI LAYANAN */
+        .service-category {
+            margin: 2rem 0;
+            padding: 1rem;
+            background: linear-gradient(rgba(15, 12, 10, 0.7), rgba(15, 12, 10, 0.8));
+            border-radius: 5px;
+            border-left: 4px solid var(--blood-red);
+            position: relative;
+        }
+
+        .service-category h2 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .service-category h2 i {
+            margin-right: 10px;
+        }
+
+        .requirements {
+            font-size: 0.9rem;
+            color: var(--emerald);
+            font-style: italic;
+            margin: 0.5rem 0;
+            border-left: 3px solid var(--emerald);
+            padding-left: 10px;
+        }
+
+        /* 🏰 TESTIMONI CUSTOM */
+        .testimonials {
+            margin: 3rem 0;
+            padding: 2rem;
+            background: linear-gradient(rgba(15, 12, 10, 0.8), rgba(15, 12, 10, 0.9));
+            border: 1px solid var(--gold);
+            border-radius: 5px;
+        }
+
+        .testimonials h2 {
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .testimonial-form {
+            background: linear-gradient(rgba(15, 12, 10, 0.7), rgba(15, 12, 10, 0.8));
+            padding: 2rem;
+            border-radius: 5px;
+            border: 1px solid var(--gold);
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--gold);
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--gold);
+            border-radius: 5px;
+            color: var(--parchment);
+            font-family: 'MedievalSharp', cursive;
+        }
+
+        .form-group textarea {
+            height: 150px;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .testimonial-card {
+            background: linear-gradient(rgba(15, 12, 10, 0.7), rgba(15, 12, 10, 0.8));
+            padding: 1.5rem;
+            border: 1px solid var(--silver);
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: """;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 4rem;
+            color: var(--gold);
+            opacity: 0.2;
+            font-family: serif;
+        }
+
+        .testimonial-content {
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-author {
+            text-align: right;
+            color: var(--gold);
+            font-weight: bold;
+        }
+
+        .testimonial-date {
+            font-size: 0.8rem;
+            color: var(--silver);
+            text-align: right;
+        }
+
+        /* 💰 METODE PEMBAYARAN */
+        .payment-methods {
+            margin: 3rem 0;
+            padding: 2rem;
+            background: linear-gradient(rgba(15, 12, 10, 0.8), rgba(15, 12, 10, 0.9));
+            border: 1px solid var(--gold);
+            border-radius: 5px;
+        }
+
+        .payment-methods h2 {
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .payment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            text-align: center;
+        }
+
+        .payment-card {
+            background: linear-gradient(rgba(15, 12, 10, 0.7), rgba(15, 12, 10, 0.8));
+            padding: 1.5rem;
+            border: 1px solid var(--silver);
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .payment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+
+        .payment-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--gold);
+        }
+
+        .payment-name {
+            font-weight: bold;
+            color: var(--silver);
+        }
+
+        .payment-number {
+            font-size: 0.9rem;
+            color: var(--parchment);
+            margin-top: 0.5rem;
+        }
+
+        /* ⚔️ TOMBOL WHATSAPP */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(to bottom, #25D366, #128C7E);
+            color: white;
+            padding: 1rem;
+            border-radius: 50%;
+            font-size: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            transition: all 0.3s;
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* 🏰 SOCIAL MEDIA */
+        .social-media {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(to bottom, var(--gold), var(--blood-red));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--parchment);
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            box-shadow: 0 3px 10px var(--shadow);
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px var(--moon-red);
+        }
+
+        /* 🏰 COPYRIGHT */
+        .copyright {
+            text-align: center;
+            padding: 1.5rem;
+            color: var(--silver);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--gold);
+            margin-top: 2rem;
+        }
+
+        .copyright p {
+            margin: 0.5rem 0;
+        }
+
+        /* 🏰 SCROLL BAR */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 5px;
+        }
+
+        /* 🏰 RESPONSIVE */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .service-category h2 {
+                font-size: 1.5rem;
+            }
+            
+            .testimonial-grid, .payment-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .service-options {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .service-option {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        /* 🏰 LOGIN MODAL */
+        .login-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-content {
+            background: linear-gradient(rgba(15, 12, 10, 0.95), rgba(15, 12, 10, 0.98));
+            border: 2px solid var(--gold);
+            border-radius: 10px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+            box-shadow: 0 0 30px var(--moon-red);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: var(--parchment);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .login-title {
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .login-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(to bottom, var(--gold), var(--blood-red));
+            color: var(--parchment);
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: 'MedievalSharp', cursive;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+
+        .login-btn:hover {
+            background: linear-gradient(to bottom, var(--blood-red), var(--gold));
+        }
+
+        .login-links {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .login-links a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        .login-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- 🏰 MAIN PAGE -->
+    <div class="main-page" id="main-page">
+        <div class="main-logo">
+            <i class="fas fa-dragon"></i>
+        </div>
+        <h1 class="main-title">AxnnStore</h1>
+        <p class="main-subtitle">Powerful Blox Fruits Boosting Services - Level Up Your Adventure with Medieval Mastery</p>
+        
+        <div class="service-options">
+            <div class="service-option" onclick="showCatalog('joki')">
+                <i class="fas fa-chess-knight"></i>
+                <h3>Jasa Joki</h3>
+                <p>Professional Blox Fruits power leveling and item acquisition</p>
+            </div>
+            <div class="service-option" onclick="alert('Coming soon!')">
+                <i class="fas fa-gem"></i>
+                <h3>Item Marketplace</h3>
+                <p>Trade rare Blox Fruits items (Coming Soon)</p>
+            </div>
+            <div class="service-option" onclick="alert('Coming soon!')">
+                <i class="fas fa-book"></i>
+                <h3>Strategy Guides</h3>
+                <p>Expert tips and tricks (Coming Soon)</p>
+            </div>
+        </div>
+        
+        <div class="social-media">
+            <a href="https://instagram.com/Ndrew_1904" class="social-icon">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://facebook.com/Andre Van Baskerville" class="social-icon">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://youtube.com/AxEonn" class="social-icon">
+                <i class="fab fa-youtube"></i>
+            </a>
+        </div>
+        
+        <button class="order-btn" onclick="openLogin()" style="margin-top: 2rem;">
+            <i class="fas fa-user-shield"></i> Login / Register
+        </button>
+    </div>
+    
+    <!-- 🏰 CATALOG PAGE -->
+    <div class="catalog-page" id="catalog-page">
+        <header>
+            <h1>⚔️ AxnnStore Boosting Services</h1>
+            <p style="color: var(--silver); font-size: 1.2rem;">Blox Fruits Power Leveling • Raid Conquest • Legendary Artifacts</p>
+        </header>
+        
+        <div class="back-btn-container" style="margin: 1rem 0; padding: 0 1rem;">
+            <button class="order-btn" onclick="showMainPage()">
+                <i class="fas fa-arrow-left"></i> Back to Main
+            </button>
+        </div>
+
+        <!-- BELLY & FRAGMENT -->
+        <div class="service-category">
+            <h2><i class="fas fa-coins"></i> Gold & Artifact Shards</h2>
+            <div class="service-card" onclick="showDetail('1mBelly')">
+                <h3 style="color: var(--steel-blue); margin-top: 0;">1M Gold</h3>
+                <p style="font-size: 1.5rem; color: var(--gold);">Rp5.000</p>
+                <button class="order-btn" onclick="event.stopPropagation(); order('1M Gold')">
+                    <i class="fas fa-scroll"></i> Order Scroll
+                </button>
+                
+                <div class="item-detail" id="1mBelly">
+                    <div class="detail-header">⚔️ Service Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Completion Time:</div>
+                        <div class="detail-value">1-3 Hours</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Requirements:</div>
+                        <div class="detail-value">Access to Second Sea</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Notes:</div>
+                        <div class="detail-value">Faster completion for higher level characters</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="service-card" onclick="showDetail('100mBelly')">
+                <h3 style="color: var(--steel-blue); margin-top: 0;">100M Gold</h3>
+                <p style="font-size: 1.5rem; color: var(--gold);">Rp180.000</p>
+                <button class="order-btn" onclick="event.stopPropagation(); order('100M Gold')">
+                    <i class="fas fa-scroll"></i> Order Scroll
+                </button>
+                
+                <div class="item-detail" id="100mBelly">
+                    <div class="detail-header">⚔️ Service Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Completion Time:</div>
+                        <div class="detail-value">6-12 Hours</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Requirements:</div>
+                        <div class="detail-value">Access to Third Sea</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Notes:</div>
+                        <div class="detail-value">Bulk discount available for repeat customers</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="service-card" onclick="showDetail('1kFragment')">
+                <h3 style="color: var(--steel-blue); margin-top: 0;">1K Artifact Shards</h3>
+                <p style="font-size: 1.5rem; color: var(--gold);">Rp1.000</p>
+                <button class="order-btn" onclick="event.stopPropagation(); order('1K Artifact Shards')">
+                    <i class="fas fa-scroll"></i> Order Scroll
+                </button>
+                
+                <div class="item-detail" id="1kFragment">
+                    <div class="detail-header">⚔️ Service Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Completion Time:</div>
+                        <div class="detail-value">2-4 Hours</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Requirements:</div>
+                        <div class="detail-value">Level 1100+ recommended</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Notes:</div>
+                        <div class="detail-value">Includes bonus shards from raid chests</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="service-card" onclick="showDetail('100kFragment')">
+                <h3 style="color: var(--steel-blue); margin-top: 0;">100K Artifact Shards</h3>
+                <p style="font-size: 1.5rem; color: var(--gold);">Rp180.000</p>
+                <button class="order-btn" onclick="event.stopPropagation(); order('100K Artifact Shards')">
+                    <i class="fas fa-scroll"></i> Order Scroll
+                </button>
+                
+                <div class="item-detail" id="100kFragment">
+                    <div class="detail-header">⚔️ Service Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Completion Time:</div>
+                        <div class="detail-value">1-2 Days</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Requirements:</div>
+                        <div class="detail-value">Level 1500+, Third Sea access</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Notes:</div>
+                        <div class="detail-value">Includes raid carries for maximum efficiency</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MASTERY -->
+        <div class="service-category">
+            <h2><i class="fas fa-star"></i> Weapon Mastery</h2>
+            <div class="service-card" onclick="showDetail('100MasteryMelee')">
+                <h3 style="color: var(--steel-blue); margin-top: 0;">100 Mastery (Blades/Fists)</h3>
+                <p style="font-size: 1.5rem; color: var(--gold);">Rp2.500</p>
+                <button class="order-btn" onclick="event.stopPropagation(); order('100 Mastery (Blades/Fists)')">
+                    <i class="fas fa-scroll"></i> Order Scroll
+                </button>
+                
+                <div class="item-detail" id="100MasteryMelee">
+                    <div class="detail-header">⚔️ Service Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Completion Time:</div>
+                        <div class="detail-value">1-2 Hours</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Requirements:</div>
+                        <div class="detail-value">Own the weapon/style</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Notes:</div>
+                        <div class="detail-value">Faster on high damage weapons</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="service-card" onclick="showDetail('100MasteryFruit')">
+                <h3 style="color: var(--steel-blue); margin-top: 0;">100 Mastery (Arcane/Guns)</h3>
+                <p style="font-size: 1.5rem; color: var(--gold);">Rp5.000</p>
+                <button class="order-btn" onclick="event.stopPropagation(); order('100 Mastery (Arcane/Guns)')">
+                    <i class="fas fa-scroll"></i> Order Scroll
+                </button>
+                
+                <div class="item-detail" id="100MasteryFruit">
+                    <div class="detail-header">⚔️ Service Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Completion Time:</div>
+                        <div class="detail-value">2-3 Hours</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Requirements:</div>
+                        <div class="detail-value">Own the fruit/gun</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Notes:</div>
+                        <div class="detail-value">Logia fruits complete faster</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FIGHTING STYLE -->
+        <div class="service-category">
+            <h2><i class="fas fa-fist-raised"></i> Combat Arts</h2>
+            <div class="service-card" onclick="showDetail('superHuman')">
+                <h3 style="color: var(--steel-blue); margin-top: 0;">Superhuman Technique</h3>
+                <p class="requirements">Requires: Dark Step, Electric, Water Kung Fu, Dragon Breath</p>
+                <p style="font-size: 1.5rem; color: var(--gold);">Rp25.000</p>
+                <button class="order-btn" onclick="event.stopPropagation(); order('Superhuman Technique')">
+                    <i class="fas fa-scroll"></i> Order Scroll
+                </button>
+                
+                <div class="item-detail" id="superHuman">
+                    <div class="detail-header">⚔️ Service Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Completion Time:</div>
+                        <div class="detail-value">3-5 Hours</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Requirements:</div>
+                        <div class="detail-value">All four basic combat styles mastered</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Notes:</div>
+                        <div class="detail-value">Includes training in all superhuman moves</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="service-card" onclick="showDetail('electricClaw')">
+                <h3 style="color: var(--steel-blue); margin-top: 0;">Lightning Claw Style</h3>
+                <p class="requirements">Requires: 400 Electric Mastery, 3m gold, 5k shards</p>
+                <p style="font-size: 1.5rem; color: var(--gold);">Rp5.000</p>
+                <button class="order-btn" onclick="event.stopPropagation(); order('Lightning Claw Style')">
+                    <i class="fas fa-scroll"></i> Order Scroll
+                </button>
+                
+                <div class="item-detail" id="electricClaw">
+                    <div class="detail-header">⚔️ Service Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Completion Time:</div>
+                        <div class="detail-value">4-6 Hours</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Requirements:</div>
+                        <div class="detail-value">400 Electric Mastery, 3m gold, 5k shards</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Notes:</div>
+                        <div class="detail-value">Includes all moves and mastery to 400</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="service-card" onclick="showDetail('deathStep')">
+                <h3 style="color: var(--steel-blue); margin-top: 0;">Death Step</h3>
+                <p class="requirements">Requires: 400 Dark Step Mastery, 3m gold, 5k shards</p>
+                <p style="font-size: 1.5rem; color: var(--gold);">Rp10.000</p>
+                <button class="order-btn" onclick="event.stopPropagation(); order('Death Step')">
+                    <i class="fas fa-scroll"></i> Order Scroll
+                </button>
+                
+                <div class="item-detail" id="deathStep">
+                    <div class="detail-header">⚔️ Service Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Completion Time:</div>
+                        <div class="detail-value">4-6 Hours</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Requirements:</div>
+                        <div class="detail-value">400 Dark Step Mastery, 3m gold, 5k shards</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Notes:</div>
+                        <div class="detail-value">Complete mastery training included</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="service-card" onclick="showDetail('sharkmanKarate')">
+                <h3 style="color: var(--steel-blue); margin-top: 0;">Sharkman Karate</h3>
+                <p class="requirements">Requires: 400 Water Kung Fu Mastery, 3m gold, 5k shards</p>
+                <p style="font-size: 1.5rem; color: var(--gold);">Rp10.000</p>
+                <button class="order-btn" onclick="event.stopPropagation(); order('Sharkman Karate')">
+                    <i class="fas fa-scroll"></i> Order Scroll
+                </button>
+                
+                <div class="item-detail" id="sharkmanKarate">
+                    <div class="detail-header">⚔️ Service Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Completion Time:</div>
+                        <div class="detail-value">5-7 Hours</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Requirements:</div>
+                        <div class="detail-value">400 Water Kung Fu Mastery, 3m gold, 5k shards</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Notes:</div>
+                        <div class="detail-value">Best for shark race characters</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="service-card" onclick="showDetail('dragonTalon')">
+                <h3 style="color: var(--steel-blue); margin-top: 0;">Dragon Talon</h3>
+                <p class="requirements">Requires: 400 Dragon Breath Mastery, 3m gold, 5k shards</p>
+                <p style="font-size: 1.5rem; color: var(--gold);">Rp20.000</p>
+                <button class="order-btn" onclick="event.stopPropagation(); order('Dragon Talon')">
+                    <i class="fas fa-scroll"></i> Order Scroll
+                </button>
+                
+                <div class="item-detail" id="dragonTalon">
+                    <div class="detail-header">⚔️ Service Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Completion Time:</div>
+                        <div class="detail-value">6-8 Hours</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Requirements:</div>
+                        <div class="detail-value">400 Dragon Breath Mastery, 3m gold, 5k shards</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Notes:</div>
+                        <div class="detail-value">Includes dragon race optimization</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="service-card" onclick="showDetail('godhuman')">
+                <h3 style="color: var(--steel-blue); margin-top: 0;">Godhuman</h3>
+                <p class="requirements">Requires: Electric Claw, Death Step, Sharkman Karate, Dragon Talon</p>
+                <p style="font-size: 1.5rem; color: var(--gold);">Rp15.000</p>
+                <button class="order-btn" onclick="event.stopPropagation(); order('Godhuman')">
+                    <i class="fas fa-scroll"></i> Order Scroll
+                </button>
+                
+                <div class="item-detail" id="godhuman">
+                    <div class="detail-header">⚔️ Service Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Completion Time:</div>
+                        <div class="detail-value">8-12 Hours</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Requirements:</div>
+                        <div class="detail-value">All required fighting styles mastered</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Notes:</div>
+                        <div class="detail-value">Most powerful combat art in the game</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="service-card" onclick="showDetail('sanguineArt')">
+                <h3 style="color: var(--steel-blue); margin-top: 0;">Sanguine Art</h3>
+                <p style="font-size: 1.5rem; color: var(--gold);">Rp50.000</p>
+                <button class="order-btn" onclick="event.stopPropagation(); order('Sanguine Art')">
+                    <i class="fas fa-scroll"></i> Order Scroll
+                </button>
+                
+                <div class="item-detail" id="sanguineArt">
+                    <div class="detail-header">⚔️ Service Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Completion Time:</div>
+                        <div class="detail-value">12-24 Hours</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Requirements:</div>
+                        <div class="detail-value">Level 2000+, All previous fighting styles</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Notes:</div>
+                        <div class="detail-value">Rare and powerful blood magic technique</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GET SWORD -->
+        <div class="service-category">
+            <h2><i class="fas fa-sword"></i> Legendary Blades</h2>
+            <div class="service-card" onclick="showDetail('sharkAnchor')">
+                <h3 style="color: var(--steel-blue); margin-top: 0;">Shark Anchor</h3>
+                <p class="requirements">Requires: Monster Magnet</p>
+                <p style="font-size: 1.5rem; color: var(--gold);">Rp20.000</p>
+                <button class="order-btn" onclick="event.stopPropagation(); order('Shark Anchor')">
+                    <i class="fas fa-scroll"></i> Order Scroll
+                </button>
+                
+                <div class="item-detail" id="sharkAnchor">
+                    <div class="detail-header">⚔️ Service Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Completion Time:</div>
+                        <div class="detail-value">3-5 Hours</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Requirements:</div>
+                        <div class="detail-value">Monster Magnet</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Notes:</div>
+                        <div class="detail-value">Great for water-based combat</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="service-card" onclick="showDetail('darkDagger')">
+                <h3 style="color: var(--steel-blue); margin-top: 0;">Dark Dagger</h3>
+                <p class="requirements">10x Rip Indra Raid</p>
+                <p style="font-size: 1.5rem; color: var(--gold);">Rp100.000</p>
+                <button class="order-btn" onclick="event.stopPropagation(); order('Dark Dagger')">
+                    <i class="fas fa-scroll"></i> Order Scroll
+                </button>
+                
+                <div class="item-detail" id="darkDagger">
+                    <div class="detail-header">⚔️ Service Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Completion Time:</div>
+                        <div class="detail-value">1-2 Days</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Requirements:</div>
+                        <div class="detail-value">10x Rip Indra Raid</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Notes:</div>
+                        <div class="detail-value">Extremely rare shadow weapon</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="service-card" onclick="showDetail('hallowScythe')">
+                <h3 style="color: var(--steel-blue); margin-top: 0;">Hallow Scythe</h3>
+                <p class="requirements">5x Kill Soul Reaper</p>
+                <p style="font-size: 1.5rem; color: var(--gold);">Rp50.000</p>
+                <button class="order-btn" onclick="event.stopPropagation(); order('Hallow Scythe')">
+                    <i class="fas fa-scroll"></i> Order Scroll
+                </button>
+                
+                <div class="item-detail" id="hallowScythe">
+                    <div class="detail-header">⚔️ Service Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Completion Time:</div>
+                        <div class="detail-value">12-24 Hours</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Requirements:</div>
+                        <div class="detail-value">5x Kill Soul Reaper</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Notes:</div>
+                        <div class="detail-value">Soul-stealing scythe of death</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="service-card" onclick="showDetail('v2Darkblade')">
+                <h3 style="color: var(--steel-blue); margin-top: 0;">V2 DarkBlade</h3>
+                <p style="font-size: 1.5rem; color: var(--gold);">Rp5.000</p>
+                <button class="order-btn" onclick="event.stopPropagation(); order('V2 DarkBlade')">
+                    <i class="fas fa-scroll"></i> Order Scroll
+                </button>
+                
+                <div class="item-detail" id="v2Darkblade">
+                    <div class="detail-header">⚔️ Service Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Completion Time:</div>
+                        <div class="detail-value">2-4 Hours</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Requirements:</div>
+                        <div class="detail-value">Original DarkBlade</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Notes:</div>
+                        <div class="detail-value">Enhanced shadow abilities</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="service-card" onclick="showDetail('v3Darkblade')">
+                <h3 style="color: var(--steel-blue); margin-top: 0;">V3 DarkBlade</h3>
+                <p class="requirements">Requires: Race V3 (Human, Mink, Shark, Angel)</p>
+                <p style="font-size: 1.5rem; color: var(--gold);">Rp50.000</p>
+                <button class="order-btn" onclick="event.stopPropagation(); order('V3 DarkBlade')">
+                    <i class="fas fa-scroll"></i> Order Scroll
+                </button>
+                
+                <div class="item-detail" id="v3Darkblade">
+                    <div class="detail-header">⚔️ Service Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Completion Time:</div>
+                        <div class="detail-value">1-2 Days</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Requirements:</div>
+                        <div class="detail-value">Race V3 (Human, Mink, Shark, Angel)</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Notes:</div>
+                        <div class="detail-value">Ultimate dark weapon evolution</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="service-card" onclick="showDetail('trueTripleKatana')">
+                <h3 style="color: var(--steel-blue); margin-top: 0;">True Triple Katana</h3>
+                <p class="requirements">Requires: 2m gold, Wando, Sishui, Saddi</p>
+                <p style="font-size: 1.5rem; color: var(--gold);">Rp20.000</p>
+                <button class="order-btn" onclick="event.stopPropagation(); order('True Triple Katana')">
+                    <i class="fas fa-scroll"></i> Order Scroll
+                </button>
+                
+                <div class="item-detail" id="trueTripleKatana">
+                    <div class="detail-header">⚔️ Service Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Completion Time:</div>
+                        <div class="detail-value">6-10 Hours</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Requirements:</div>
+                        <div class="detail-value">2m gold, Wando, Sishui, Saddi</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Notes:</div>
+                        <div class="detail-value">Three-sword style mastery included</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="service-card" onclick="showDetail('cursedDualKatana')">
+                <h3 style="color: var(--steel-blue); margin-top: 0;">Cursed Dual Katana</h3>
+                <p class="requirements">Level 2200+ | +Rp10K if Yama & Tushita <350 Mastery</p>
+                <p style="font-size: 1.5rem; color: var(--gold);">Rp20.000</p>
+                <button class="order-btn" onclick="event.stopPropagation(); order('Cursed Dual Katana')">
+                    <i class="fas fa-scroll"></i> Order Scroll
+                </button>
+                
+                <div class="item-detail" id="cursedDualKatana">
+                    <div class="detail-header">⚔️ Service Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Completion Time:</div>
+                        <div class="detail-value">1-2 Days</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Requirements:</div>
+                        <div class="detail-value">Level 2200+</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Notes:</div>
+                        <div class="detail-value">Extra fee if mastery requirements not met</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="service-card" onclick="showDetail('yama')">
+                <h3 style="color: var(--steel-blue); margin-top: 0;">Yama</h3>
+                <p style="font-size: 1.5rem; color: var(--gold);">Rp15.000</p>
+                <button class="order-btn" onclick="event.stopPropagation(); order('Yama')">
+                    <i class="fas fa-scroll"></i> Order Scroll
+                </button>
+                
+                <div class="item-detail" id="yama">
+                    <div class="detail-header">⚔️ Service Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Completion Time:</div>
+                        <div class="detail-value">4-8 Hours</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Requirements:</div>
+                        <div class="detail-value">Level 2000+</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Notes:</div>
+                        <div class="detail-value">One of the twin demon blades</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="service-card" onclick="showDetail('tushita')">
+                <h3 style="color: var(--steel-blue); margin-top: 0;">Tushita</h3>
+                <p class="requirements">Requires: Level 2000+</p>
+                <p style="font-size: 1.5rem; color: var(--gold);">Rp15.000</p>
+                <button class="order-btn" onclick="event.stopPropagation(); order('Tushita')">
+                    <i class="fas fa-scroll"></i> Order Scroll
+                </button>
+                
+                <div class="item-detail" id="tushita">
+                    <div class="detail-header">⚔️ Service Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Completion Time:</div>
+                        <div class="detail-value">4-8 Hours</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Requirements:</div>
+                        <div class="detail-value">Level 2000+</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Notes:</div>
+                        <div class="detail-value">One of the twin demon blades</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="service-card" onclick="showDetail('wando')">
+                <h3 style="color: var(--steel-blue); margin-top: 0;">Wando</h3>
+                <p style="font-size: 1.5rem; color: var(--gold);">Rp4.000</p>
+                <button class="order-btn" onclick="event.stopPropagation(); order('Wando')">
+                    <i class="fas fa-scroll"></i> Order Scroll
+                </button>
+                
+                <div class="item-detail" id="wando">
+                    <div class="detail-header">⚔️ Service Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Completion Time:</div>
+                        <div class="detail-value">1-2 Hours</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Requirements:</div>
+                        <div class="detail-value">None</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Notes:</div>
+                        <div class="detail-value">Basic katana for beginners</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="service-card" onclick="showDetail('saddi')">
+                <h3 style="color: var(--steel-blue); margin-top: 0;">Saddi</h3>
+                <p style="font-size: 1.5rem; color: var(--gold);">Rp4.000</p>
+                <button class="order-btn" onclick="event.stopPropagation(); order('Saddi')">
+                    <i class="fas fa-scroll"></i> Order Scroll
+                </button>
+                
+                <div class="item-detail" id="saddi">
+                    <div class="detail-header">⚔️ Service Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Completion Time:</div>
+                        <div class="detail-value">1-2 Hours</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Requirements:</div>
+                        <div class="detail-value">None</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Notes:</div>
+                        <div class="detail-value">Basic katana for beginners</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="service-card" onclick="showDetail('shisui')">
+                <h3 style="color: var(--steel-blue); margin-top: 0;">Shisui</h3>
+                <p style="font-size: 1.5rem; color: var(--gold);">Rp4.000</p>
+                <button class="order-btn" onclick="event.stopPropagation(); order('Shisui')">
+                    <i class="fas fa-scroll"></i> Order Scroll
+                </button>
+                
+                <div class="item-detail" id="shisui">
+                    <div class="detail-header">⚔️ Service Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Completion Time:</div>
+                        <div class="detail-value">1-2 Hours</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Requirements:</div>
+                        <div class="detail-value">None</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Notes:</div>
+                        <div class="detail-value">Basic katana for beginners</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="service-card" onclick="showDetail('saber')">
+                <h3 style="color: var(--steel-blue); margin-top: 0;">Saber</h3>
+                <p style="font-size: 1.5rem; color: var(--gold);">Rp3.000</p>
+                <button class="order-btn" onclick="event.stopPropagation(); order('Saber')">
+                    <i class="fas fa-scroll"></i> Order Scroll
+                </button>
+                
+                <div class="item-detail" id="saber">
+                    <div class="detail-header">⚔️ Service Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Completion Time:</div>
+                        <div class="detail-value">1-2 Hours</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Requirements:</div>
+                        <div class="detail-value">None</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Notes:</div>
+                        <div class="detail-value">Classic pirate cutlass</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="service-card" onclick="showDetail('spikeyTrident')">
+                <h3 style="color: var(--steel-blue); margin-top: 0;">Spikey Trident</h3>
+                <p style="font-size: 1.5rem; color: var(--gold);">Rp10.000</p>
+                <button class="order-btn" onclick="event.stopPropagation(); order('Spikey Trident')">
+                    <i class="fas fa-scroll"></i> Order Scroll
+                </button>
+                
+                <div class="item-detail" id="spikeyTrident">
+                    <div class="detail-header">⚔️ Service Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Completion Time:</div>
+                        <div class="detail-value">3-5 Hours</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Requirements:</div>
+                        <div class="detail-value">Access to Fishman Island</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Notes:</div>
+                        <div class="detail-value">Best for shark race characters</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GET GUN -->
+        <div class="service-category">
+            <h2><i class="fas fa-gun"></i> Arcane Firearms</h2>
+            <div class="service-card" onclick="showDetail('kabucha')">
+                <h3 style="color: var(--steel-blue); margin-top: 0;">Kabucha</h3>
+                <p style="font-size: 1.5rem; color: var(--gold);">Rp5.000</p>
+                <button class="order-btn" onclick="event.stopPropagation(); order('Kabucha')">
+                    <i class="fas fa-scroll"></i> Order Scroll
+                </button>
+                
+                <div class="item-detail" id="kabucha">
+                    <div class="detail-header">⚔️ Service Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Completion Time:</div>
+                        <div class="detail-value">2-3 Hours</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Requirements:</div>
+                        <div class="detail-value">None</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Notes:</div>
+                        <div class="detail-value">Basic firearm for ranged combat</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="service-card" onclick="showDetail('acidumRifle')">
+                <h3 style="color: var(--steel-blue); margin-top: 0;">Acidum Rifle</h3>
+                <p style="font-size: 1.5rem; color: var(--gold);">Rp20.000</p>
+                <button class="order-btn" onclick="event.stopPropagation(); order('Acidum Rifle')">
+                    <i class="fas fa-scroll"></i> Order Scroll
+                </button>
+                
+                <div class="item-detail" id="acidumRifle">
+                    <div class="detail-header">⚔️ Service Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Completion Time:</div>
+                        <div class="detail-value">4-6 Hours</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Requirements:</div>
+                        <div class="detail-value">Level 1500+</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Notes:</div>
+                        <div class="detail-value">Corrosive ammunition included</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="service-card" onclick="showDetail('soulGuitar')">
+                <h3 style="color: var(--steel-blue); margin-top: 0;">Soul Guitar</h3>
+                <p class="requirements">Requires: Level 2300+</p>
+                <p style="font-size: 1.5rem; color: var(--gold);">Rp15.000</p>
+                <button class="order-btn" onclick="event.stopPropagation(); order('Soul Guitar')">
+                    <i class="fas fa-scroll"></i> Order Scroll
+                </button>
+                
+                <div class="item-detail" id="soulGuitar">
+                    <div class="detail-header">⚔️ Service Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Completion Time:</div>
+                        <div class="detail-value">1-2 Days</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Requirements:</div>
+                        <div class="detail-value">Level 2300+</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Notes:</div>
+                        <div class="detail-value">Haunting melodies that damage enemies</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="service-card" onclick="showDetail('soulGuitarMaterial')">
+                <h3 style="color: var(--steel-blue); margin-top: 0;">SoulGuitar + Material</h3>
+                <p class="requirements">Requires: Level 2300+</p>
+                <p style="font-size: 1.5rem; color: var(--gold);">Rp30.000</p>
+                <button class="order-btn" onclick="event.stopPropagation(); order('SoulGuitar + Material')">
+                    <i class="fas fa-scroll"></i> Order Scroll
+                </button>
+                
+                <div class="item-detail" id="soulGuitarMaterial">
+                    <div class="detail-header">⚔️ Service Details</div>
+                    <div class="detail-row">
+                        <div class="detail-label">Completion Time:</div>
+                        <div class="detail-value">1-2 Days</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Requirements:</div>
+                        <div class="detail-value">Level 2300+</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Notes:</div>
+                        <div class="detail-value">Includes all crafting materials</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 🏰 TESTIMONI CUSTOM -->
+        <div class="testimonials">
+            <h2>🛡️ Knight's Testimonials</h2>
+            
+            <div class="testimonial-form">
+                <h3 style="color: var(--gold); text-align: center; margin-bottom: 1.5rem;">Share Your Experience</h3>
+                <div class="form-group">
+                    <label for="testimonial-name">Your Name:</label>
+                    <input type="text" id="testimonial-name" placeholder="Sir Lancelot">
+                </div>
+                <div class="form-group">
+                    <label for="testimonial-content">Your Testimonial:</label>
+                    <textarea id="testimonial-content" placeholder="Share your experience with our services..."></textarea>
+                </div>
+                <button class="order-btn" onclick="addTestimonial()" style="width: 100%;">
+                    <i class="fas fa-feather-alt"></i> Submit Testimonial
+                </button>
+            </div>
+            
+            <div class="testimonial-grid" id="testimonial-container">
+                <!-- Testimonials will be added here dynamically -->
+            </div>
+        </div>
+
+        <!-- 💰 METODE PEMBAYARAN -->
+        <div class="payment-methods">
+            <h2>💰 Royal Payment Methods</h2>
+            <div class="payment-grid">
+                <div class="payment-card">
+                    <div class="payment-icon"><i class="fas fa-wallet"></i></div>
+                    <div class="payment-name">Dana</div>
+                    <div class="payment-number">629509053071</div>
+                </div>
+                
+                <div class="payment-card">
+                    <div class="payment-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <div class="payment-name">Go-Pay</div>
+                    <div class="payment-number">629509053071</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="social-media">
+            <a href="https://instagram.com/Ndrew_1904" class="social-icon">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://facebook.com/Andre Van Baskerville" class="social-icon">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://youtube.com/AxEonn" class="social-icon">
+                <i class="fab fa-youtube"></i>
+            </a>
+        </div>
+        
+        <div class="copyright">
+            <p>By the name of god, Anyone who steals content and scenarios made here will receive appropriate punishment</p>
+            <p>© AxnnStore | All Rights Reserved</p>
+            <p>Contact: 629509053071</p>
+        </div>
+    </div>
+    
+    <!-- ⚔️ TOMBOL WHATSAPP -->
+    <a href="https://wa.me/629509053071" class="whatsapp-btn">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    
+    <!-- 🏰 LOGIN MODAL -->
+    <div class="login-modal" id="login-modal">
+        <div class="login-content">
+            <span class="close-btn" onclick="closeLogin()">&times;</span>
+            <h2 class="login-title">⚔️ Login to AxnnStore</h2>
+            <form class="login-form">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" placeholder="Enter your username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" placeholder="Enter your password">
+                </div>
+                <button type="button" class="login-btn" onclick="login()">Login</button>
+            </form>
+            <div class="login-links">
+                <a href="#">Forgot Password?</a> | 
+                <a href="#">Create Account</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 🏰 FUNGSI PESAN OTOMATIS
+        function order(serviceName) {
+            const phone = "629509053071";
+            const message = `⚔️ *AxnnStore Order* ⚔️\n\nService: ${serviceName}\nCharacter Name: \nCurrent Level: \nSpecial Requests: `;
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, "_blank");
+        }
+
+        // 📜 FUNGSI DETAIL ITEM
+        function showDetail(id) {
+            // Hide all details first
+            document.querySelectorAll('.item-detail').forEach(detail => {
+                detail.style.display = 'none';
+            });
+            
+            // Show selected detail
+            const detail = document.getElementById(id);
+            if (detail) {
+                detail.style.display = detail.style.display === 'block' ? 'none' : 'block';
+            }
+        }
+
+        // Close details when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.service-card')) {
+                document.querySelectorAll('.item-detail').forEach(detail => {
+                    detail.style.display = 'none';
+                });
+            }
+        });
+        
+        // 🏰 PAGE NAVIGATION
+        function showCatalog(page) {
+            document.getElementById('main-page').style.display = 'none';
+            document.getElementById('catalog-page').style.display = 'block';
+        }
+        
+        function showMainPage() {
+            document.getElementById('catalog-page').style.display = 'none';
+            document.getElementById('main-page').style.display = 'block';
+        }
+        
+        // 🏰 LOGIN FUNCTIONS
+        function openLogin() {
+            document.getElementById('login-modal').style.display = 'flex';
+        }
+        
+        function closeLogin() {
+            document.getElementById('login-modal').style.display = 'none';
+        }
+        
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if(username && password) {
+                alert('Login successful! Welcome back, ' + username);
+                closeLogin();
+            } else {
+                alert('Please enter both username and password');
+            }
+        }
+        
+        // 🏰 TESTIMONIAL SYSTEM
+        function addTestimonial() {
+            const name = document.getElementById('testimonial-name').value;
+            const content = document.getElementById('testimonial-content').value;
+            
+            if(!name || !content) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            const testimonialContainer = document.getElementById('testimonial-container');
+            const date = new Date().toLocaleDateString();
+            
+            const testimonialHTML = `
+                <div class="testimonial-card">
+                    <div class="testimonial-content">"${content}"</div>
+                    <div class="testimonial-author">- ${name}</div>
+                    <div class="testimonial-date">${date}</div>
+                </div>
+            `;
+            
+            testimonialContainer.insertAdjacentHTML('afterbegin', testimonialHTML);
+            
+            // Clear form
+            document.getElementById('testimonial-name').value = '';
+            document.getElementById('testimonial-content').value = '';
+            
+            alert('Thank you for your testimonial!');
+        }
+        
+        // Initialize with sample testimonials
+        window.onload = function() {
+            const sampleTestimonials = [
+                {name: "Sir Lancelot", content: "The AxnnStore boosters completed my 100M gold order in just 8 hours! Their communication was excellent throughout the process.", date: "2023-11-15"},
+                {name: "Lady Morgana", content: "I was skeptical at first, but they delivered my Electric Claw faster than promised. Will definitely use their services again for Godhuman.", date: "2023-11-10"}
+            ];
+            
+            const testimonialContainer = document.getElementById('testimonial-container');
+            
+            sampleTestimonials.forEach(testimonial => {
+                testimonialContainer.innerHTML += `
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">"${testimonial.content}"</div>
+                        <div class="testimonial-author">- ${testimonial.name}</div>
+                        <div class="testimonial-date">${testimonial.date}</div>
+                    </div>
+                `;
+            });
+        };
+    </script>
+
+    <!-- 🏰 FONT MEDIEVAL -->
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
+</body>
+</html>
